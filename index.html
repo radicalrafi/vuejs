@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    {{ query }}
+    <p> {{ chapter }}</p>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            query:'',
+            chapter:''
+        },
+        created:function(){
+            this.pingAPi()
+        },
+        methods:{
+            pingAPi(){
+                this.query = 'Searching Text...'
+                axios.get('http://lvh.me:3000/search/ass')
+                .then(function(response){
+                    vm.query= response.data["query"],
+                    vm.chapter = response.data["chapter"]
+                })
+            }
+        }
+    })
+</script>
+</html>
